@@ -1,12 +1,7 @@
-package com.android.freelance.famousplaces.data.db.entity
+package com.android.freelance.famousplaces.data.network.models
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-const val wonder_ID = 0
-
-@Entity(tableName = "tbl_wonders")
 data class Wonders(
     @SerializedName("location")
     val location: String,
@@ -22,7 +17,4 @@ data class Wonders(
 
     @SerializedName("long")
     val long: Double
-) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = wonder_ID
-}
+)

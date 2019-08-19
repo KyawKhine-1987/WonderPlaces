@@ -6,13 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [WonderPlacesEntry::class],
+    entities = [WondersEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class WondersDatabase : RoomDatabase() {
 
-    abstract fun wonderPlacesDao(): WonderPlacesDao
+    abstract fun wondersDao(): WondersDao
 
     companion object {
         @Volatile
@@ -25,7 +25,7 @@ abstract class WondersDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext,
-                WondersDatabase::class.java, "Wonders.db")
+                WondersDatabase::class.java, "Wonders")
                 .build()
     }
 }

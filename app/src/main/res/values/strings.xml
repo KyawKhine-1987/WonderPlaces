@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">famousplaces</string>
-    <string name="load">Loading</string>
+    <string name="app_name">Wonders</string>
+    <!--<string name="load">Loading</string>-->
+    <string name="w">Wonder Places</string>
+    <string name="location">Title</string>
+    <string name="description">Description</string>
 
 </resources>

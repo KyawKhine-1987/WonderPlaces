@@ -1,6 +1,6 @@
 package com.android.freelance.famousplaces.data.network.response
 
-import com.android.freelance.famousplaces.data.db.entity.Wonders
+import com.android.freelance.famousplaces.data.network.models.Wonders
 import com.google.gson.annotations.SerializedName
 
 
