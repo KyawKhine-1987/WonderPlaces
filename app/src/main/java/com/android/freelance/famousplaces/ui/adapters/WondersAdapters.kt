@@ -12,10 +12,15 @@ import com.android.freelance.famousplaces.R
 import com.android.freelance.famousplaces.data.db.entity.WondersEntity
 import com.bumptech.glide.Glide
 
-class WondersAdapters(private val context: Context, private val wonders: List<WondersEntity>) :
+class WondersAdapters(val mListItemClickListener: ListItemClickListener, private val context: Context, private val wonders: List<WondersEntity>) :
     RecyclerView.Adapter<WondersAdapters.WondersViewHolder>() {
 
     private val LOG_TAG = WondersAdapters::class.java.name
+
+
+    interface ListItemClickListener {
+        fun onListItemClick(clickItemIndex: Int, wondersEntity: List<WondersEntity>)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WondersViewHolder {
         Log.i(LOG_TAG, "TEST: onCreateViewHolder() is called...")
@@ -32,9 +37,15 @@ class WondersAdapters(private val context: Context, private val wonders: List<Wo
         holder.bindModel(wonders[i])
     }
 
-    inner class WondersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
+    inner class WondersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener  {
+
         private val LOG_TAG = WondersViewHolder::class.java.name
 
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        private var view: View = itemView
         private val wondersImage: ImageView = itemView.findViewById(R.id.ivWonders)
         private val title: TextView = itemView.findViewById(R.id.tvLocation)
         private val desp: TextView = itemView.findViewById(R.id.tvDescription)
@@ -45,6 +56,13 @@ class WondersAdapters(private val context: Context, private val wonders: List<Wo
             Glide.with(context).load(wondersEntity.image).into(wondersImage)
             title.text = wondersEntity.location
             desp.text = wondersEntity.description
+        }
+
+        override fun onClick(v: View?) {
+            Log.i(LOG_TAG, "TEST: onClick() is called...")
+
+            val clickedPosition = getAdapterPosition()
+            mListItemClickListener.onListItemClick(clickedPosition, wonders)
         }
     }
 }

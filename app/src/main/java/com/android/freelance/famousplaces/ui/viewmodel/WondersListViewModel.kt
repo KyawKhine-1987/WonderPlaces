@@ -46,11 +46,6 @@ class WondersListViewModel(
         wondersRepository!!.insert(wondersEntity)
     }
 
-    /*suspend fun fetchAllWonders(): LiveData<List<WondersEntity>> {
-        Log.i(LOG_TAG, "TEST: fetchAllWonders() is called...")
-
-       return wondersRepository!!.fetchAllWonders()
-    }*/
     val fetchAllWonders: LiveData<List<WondersEntity>> = wondersRepository!!.fetchAllWonders
 
     //suspend
@@ -59,4 +54,10 @@ class WondersListViewModel(
 
         wondersRepository!!.deleteAllData()
     }
+
+    /*suspend fun fetchAllWonders(): LiveData<List<WondersEntity>> {
+        Log.i(LOG_TAG, "TEST: fetchAllWonders() is called...")
+
+       return wondersRepository!!.fetchAllWonders()
+    }*/
 }

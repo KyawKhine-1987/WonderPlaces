@@ -23,10 +23,8 @@ class WondersRepository(application: Application) {
         //createDatabase()
         val db = WondersDatabase.invoke(application)
         wondersDao = db.wondersDao()
-
     }
 
-    //private fun persistFetchedWonderPlaces(newWonderPlaces: WondersResponse?)
     //suspend
     @WorkerThread
     fun insert(wondersEntity: ArrayList<WondersEntity>) {
@@ -38,14 +36,6 @@ class WondersRepository(application: Application) {
         }*/
     }
 
-    // related from WonderPlacesRepository Interface.
-    /*suspend fun fetchAllWonders(): LiveData<List<WondersEntity>> {
-        Log.i(LOG_TAG, "TEST: fetchAllWonders() called...")
-
-        return withContext(Dispatchers.IO) {
-            return@withContext wondersDao!!.getAllData()
-        }
-    }*/
     val fetchAllWonders: LiveData<List<WondersEntity>> = wondersDao!!.getAllData()
 
     //suspend
@@ -57,4 +47,13 @@ class WondersRepository(application: Application) {
             wondersDao!!.deleteAll()
         }*/
     }
+
+    // related from WonderPlacesRepository Interface.
+    /*suspend fun fetchAllWonders(): LiveData<List<WondersEntity>> {
+        Log.i(LOG_TAG, "TEST: fetchAllWonders() called...")
+
+        return withContext(Dispatchers.IO) {
+            return@withContext wondersDao!!.getAllData()
+        }
+    }*/
 }

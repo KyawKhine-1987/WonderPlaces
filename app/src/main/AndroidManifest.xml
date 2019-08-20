@@ -9,7 +9,7 @@
 
     <!--android:name=".WondersApplication"-->
     <application
-            android:allowBackup="true"
+            android:allowBackup="false"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher"
@@ -17,7 +17,8 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.lists.WondersListActivity">
+        <activity android:name=".ui.lists.WondersListActivity"
+        android:label="@string/l">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -26,7 +27,9 @@
         </activity>
 
         <activity android:name=".ui.detail.WondersDetailActivity"
-                  android:parentActivityName=".ui.lists.WondersListActivity">
+                  android:parentActivityName=".ui.lists.WondersListActivity"
+        android:label="@string/d"
+        android:launchMode="singleTop">
         </activity>
     </application>
 

@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Wonders</string>
-    <!--<string name="load">Loading</string>-->
-    <string name="w">Wonder Places</string>
+    <string name="l">Wonders List</string>
+    <string name="d">Wonders Detail</string>
+
+    <string name="w">Wonderful Places</string>
     <string name="location">Title</string>
     <string name="description">Description</string>
 

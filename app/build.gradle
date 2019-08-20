@@ -22,6 +22,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    /*dataBinding {
+        enabled true
+    }*/
 }
 
 dependencies {
@@ -60,7 +63,7 @@ dependencies {
     def room_version = '2.2.0-alpha02'
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"//Add some suspense feature in interface of FilmsDao to room db.
+    //implementation "androidx.room:room-ktx:$room_version"//Add some suspense feature in interface of FilmsDao to room db.
     //implementation "androidx.room:room-coroutines:2.1.0-alpha04"//Add some suspense to room db
 
     // ViewModel
@@ -74,14 +77,12 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutines_Version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxCoroutines_Version"
 
-    // Kodein or Dependency Injection
+    /*// Kodein or Dependency Injection
     def kodein_version = '5.2.0'
     implementation "org.kodein.di:kodein-di-generic-jvm:$kodein_version"
     implementation "org.kodein.di:kodein-di-framework-android-x:$kodein_version"
 
-    /*// Groupie RecyclerView
+    // Groupie RecyclerView
     implementation 'com.xwray:groupie:2.1.0'
     implementation 'com.xwray:groupie-kotlin-android-extensions:2.1.0'*/
-
-
 }

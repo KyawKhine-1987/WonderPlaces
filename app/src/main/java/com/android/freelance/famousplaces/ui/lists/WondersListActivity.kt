@@ -2,6 +2,7 @@ package com.android.freelance.famousplaces.ui.lists
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,25 +18,20 @@ import com.android.freelance.famousplaces.R
 import com.android.freelance.famousplaces.data.db.entity.WondersEntity
 import com.android.freelance.famousplaces.data.network.ApiWonders
 import com.android.freelance.famousplaces.ui.adapters.WondersAdapters
+import com.android.freelance.famousplaces.ui.detail.WondersDetailActivity
+import com.android.freelance.famousplaces.ui.viewmodel.WondersDetailViewModel
 import com.android.freelance.famousplaces.ui.viewmodel.WondersListViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_wonders_list.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.closestKodein
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-/*class WondersListActivity : AppCompatActivity(), KodeinAware {*/
-class WondersListActivity : AppCompatActivity() {
+class WondersListActivity : AppCompatActivity(), WondersAdapters.ListItemClickListener {
 
     private val LOG_TAG = WondersListActivity::class.java.name
 
-    /*override val kodein by closestKodein()*/
     private lateinit var viewModel: WondersListViewModel
     var progressBar: ProgressBar? = null
     var hasInternet = false
@@ -57,29 +53,11 @@ class WondersListActivity : AppCompatActivity() {
         bindUI()
 
         offlineData()
-
-        /*val apiService = ApiWonders(ConnectivityInterceptorImpl(this.applicationContext!!))
-        val wonderPlacesNetworkDataSource = WonderPlacesNetworkDataSourceImpl(apiService)
-        wonderPlacesNetworkDataSource.downloadedWonderPlaces.observe(this, Observer {
-            tvLocation.text = it.toString()
-        })
-
-        GlobalScope.launch(Dispatchers.Main) {
-            wonderPlacesNetworkDataSource.fetchWonderPlaces()}*/
-
     }
 
     @SuppressLint("CheckResult")
     private fun bindUI() {
         Log.i(LOG_TAG, "TEST: bindUI() is called...")
-        /* val wonderPlaces = viewModel.wonderPlaces.await()
-         wonderPlaces.observe(this@WondersListActivity, Observer {
-
-             if (it == null) return@Observer
-             tvLocation.text = it.toString()
-         })*/
-
-        viewModel.deleteAllData()
 
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://api.myjson.com")
@@ -108,10 +86,11 @@ class WondersListActivity : AppCompatActivity() {
                             wondersEntity.image = wondersFromNetwork.image
                             wondersEntity.description = wondersFromNetwork.description
                             wondersEntity.lat = wondersFromNetwork.lat
-                            wondersEntity.long = wondersFromNetwork.long
+                            wondersEntity.longitude = wondersFromNetwork.long
                             wondersListEntity.add(wondersEntity)
                         }
 
+                        viewModel.deleteAllData()
                         viewModel.insert(wondersListEntity)
                         progressBarGone()
                     }).start()
@@ -145,8 +124,9 @@ class WondersListActivity : AppCompatActivity() {
             val wondersList = rvWondersList
             val layoutManager = LinearLayoutManager(this)
             wondersList.layoutManager = layoutManager
+            wondersList.hasFixedSize()
             wondersList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-            val adapter = WondersAdapters(this@WondersListActivity, wondersEntity)
+            val adapter = WondersAdapters(this@WondersListActivity, applicationContext, wondersEntity)
             wondersList.adapter = adapter
         })
     }
@@ -165,7 +145,7 @@ class WondersListActivity : AppCompatActivity() {
 
         // when the task is started, make progressBar is loading
         this@WondersListActivity.runOnUiThread(java.lang.Runnable {
-            progressBar?.visibility = View.GONE
+            progressBar?.visibility = View.VISIBLE
         })
     }
 
@@ -176,5 +156,16 @@ class WondersListActivity : AppCompatActivity() {
         this@WondersListActivity.runOnUiThread(java.lang.Runnable {
             progressBar?.visibility = View.GONE
         })
+    }
+
+    override fun onListItemClick(position: Int, wondersEntity: List<WondersEntity>) {
+        Log.i(LOG_TAG, "TEST: onListItemClick() called...")
+
+        /*val intent = Intent(applicationContext, WondersDetailActivity::class.java)*/
+        val intent = Intent(applicationContext, WondersDetailActivity::class.java)
+        intent.putExtra("image", wondersEntity.get(position).image)
+        intent.putExtra("title", wondersEntity.get(position).location)
+        intent.putExtra("desp", wondersEntity.get(position).description)
+        startActivity(intent)
     }
 }

@@ -22,7 +22,7 @@ data class WondersEntity(
     var lat: Double = 0.00,
 
     @ColumnInfo(name = "longitude")
-    var long: Double  = 0.00
+    var longitude: Double  = 0.00 // do not give the "long" attribute name.
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = wonder_ID
