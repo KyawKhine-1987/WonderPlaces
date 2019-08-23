@@ -76,7 +76,7 @@ class WondersListActivity : AppCompatActivity(), WondersAdapters.ListItemClickLi
                     hasInternet = true
 
                     Thread(Runnable {
-                        val wondersListFromNetwork = it.wonders!!
+                        val wondersListFromNetwork = it.wonders
 
                         val wondersListEntity = ArrayList<WondersEntity>()
                         for (wondersFromNetwork in wondersListFromNetwork) {
@@ -150,7 +150,7 @@ class WondersListActivity : AppCompatActivity(), WondersAdapters.ListItemClickLi
     }
 
     private fun progressBarGone() {
-        Log.i(LOG_TAG, "TEST: progressBarLoading() is called...")
+        Log.i(LOG_TAG, "TEST: progressBarGone() is called...")
 
         // when the task is completed, make progressBar gone
         this@WondersListActivity.runOnUiThread(java.lang.Runnable {

@@ -45,7 +45,7 @@ class WondersAdapters(val mListItemClickListener: ListItemClickListener, private
             itemView.setOnClickListener(this)
         }
 
-        private var view: View = itemView
+        /*private var view: View = itemView*/
         private val wondersImage: ImageView = itemView.findViewById(R.id.ivWonders)
         private val title: TextView = itemView.findViewById(R.id.tvLocation)
         private val desp: TextView = itemView.findViewById(R.id.tvDescription)
